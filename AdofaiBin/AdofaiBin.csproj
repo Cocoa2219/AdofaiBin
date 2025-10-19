@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{C32C965D-5ED2-4E84-9C62-4D9B3211030E}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>AdofaiBin</RootNamespace>
+        <AssemblyName>AdofaiBin</AssemblyName>
+        <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>12</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="0Harmony">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityModManager\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="mscorlib">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\mscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="netstandard">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\netstandard.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+          <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="RDTools">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\RDTools.dll</HintPath>
+        </Reference>
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="UnityEngine">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityModManager">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Mod.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Serialization\Encoding\AdofaiBinEncoder.cs" />
+        <Compile Include="Serialization\Encoding\EncodeResult.cs" />
+        <Compile Include="Serialization\Encoding\EncodingContext.cs" />
+        <Compile Include="Serialization\Encoding\EncodingOptions.cs" />
+        <Compile Include="Serialization\Encoding\Exception\EncodingException.cs" />
+        <Compile Include="Serialization\Encoding\Exception\EncodingFutureVersionException.cs" />
+        <Compile Include="Serialization\Encoding\Exception\EncodingInvalidJsonException.cs" />
+        <Compile Include="Serialization\Encoding\IO\Crc32.cs" />
+        <Compile Include="Serialization\Encoding\IO\IBinarySink.cs" />
+        <Compile Include="Serialization\Encoding\IO\StreamBinarySink.cs" />
+        <Compile Include="Serialization\Encoding\IO\WriteCursor.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\EncodingPipeline.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\EncodingStats.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\EventKindTable.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\IBlockWriter.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\IPropertyEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\IStage.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\KeyDict.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\ArrayEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\BoolEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\ColorEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\EnumEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\FileEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\FilterPropertiesEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\FloatEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\FloatPairEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\IntEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\ListEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\LongStringEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\MinMaxGradientEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\RatingEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\StringEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\TileEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\Vector2Encoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncoder\Vector2RangeEncoder.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\PropertyEncodingRegistry.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\Stage\BuildModelStage.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\Stage\WriteBlocksStage.cs" />
+        <Compile Include="Serialization\Encoding\Pipeline\StringTable.cs" />
+        <Compile Include="Serialization\Misc\JObjectExtensions.cs" />
+        <Compile Include="Serialization\Schema\DataType\Color32.cs" />
+        <Compile Include="Serialization\Schema\DataType\EnumValue.cs" />
+        <Compile Include="Serialization\Schema\DataType\FilterProp.cs" />
+        <Compile Include="Serialization\Schema\DataType\FloatPair.cs" />
+        <Compile Include="Serialization\Schema\DataType\MinMaxGradient.cs" />
+        <Compile Include="Serialization\Schema\DataType\TileRef.cs" />
+        <Compile Include="Serialization\Schema\DataType\Vec2.cs" />
+        <Compile Include="Serialization\Schema\DataType\Vec2Range.cs" />
+        <Compile Include="Serialization\Schema\EventCategory.cs" />
+        <Compile Include="Serialization\Schema\EventExecutionTime.cs" />
+        <Compile Include="Serialization\Schema\EventSchema.cs" />
+        <Compile Include="Serialization\Schema\EventType.cs" />
+        <Compile Include="Serialization\Schema\Event\AddComponent.cs" />
+        <Compile Include="Serialization\Schema\Event\AddDecoration.cs" />
+        <Compile Include="Serialization\Schema\Event\AddObject.cs" />
+        <Compile Include="Serialization\Schema\Event\AddParticle.cs" />
+        <Compile Include="Serialization\Schema\Event\AddText.cs" />
+        <Compile Include="Serialization\Schema\Event\AnimateTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\AutoPlayTiles.cs" />
+        <Compile Include="Serialization\Schema\Event\Bloom.cs" />
+        <Compile Include="Serialization\Schema\Event\Bookmark.cs" />
+        <Compile Include="Serialization\Schema\Event\CallMethod.cs" />
+        <Compile Include="Serialization\Schema\Event\ChangeTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\Checkpoint.cs" />
+        <Compile Include="Serialization\Schema\Event\ColorTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\CustomBackground.cs" />
+        <Compile Include="Serialization\Schema\Event\EditorComment.cs" />
+        <Compile Include="Serialization\Schema\Event\EmitParticle.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\AngleCorrectionDirection.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\BgDisplayMode.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\CamMovementType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\CustomFloorIcon.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\DecorationBlendMode.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\DecPlacementType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\Ease.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\EasePartBehavior.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\Filter.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FilterPlane.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FilterTargetType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FlashPlane.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FloorDecorationColorType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FloorDecorationType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\FontName.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\GameSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\Hitbox.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HitboxDetectTarget.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HitboxTargetPlanet.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HitboxTriggerType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HitboxType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HitSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldEndSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldLoopSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldMidSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldMidSoundTimingRelativeTo.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldMidSoundType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\HoldStartSound.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\InputEventState.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\InputEventTarget.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\MaskingType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\ObjectDecorationType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\ParticleArcMode.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\ParticlePlayMode.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\ParticleShape.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\ParticleSimulationSpace.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\PlanetCount.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\PlanetDecorationColorType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\RandomMode.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\RepeatType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\SpeedType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TargetPlanet.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TrackAnimationType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TrackAnimationType2.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TrackColorPulse.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TrackColorType.cs" />
+        <Compile Include="Serialization\Schema\Event\Enum\TrackStyle.cs" />
+        <Compile Include="Serialization\Schema\Event\EventBase.cs" />
+        <Compile Include="Serialization\Schema\Event\Flash.cs" />
+        <Compile Include="Serialization\Schema\Event\FreeRoam.cs" />
+        <Compile Include="Serialization\Schema\Event\FreeRoamRemove.cs" />
+        <Compile Include="Serialization\Schema\Event\FreeRoamTwirl.cs" />
+        <Compile Include="Serialization\Schema\Event\FreeRoamWarning.cs" />
+        <Compile Include="Serialization\Schema\Event\HallOfMirrors.cs" />
+        <Compile Include="Serialization\Schema\Event\Hide.cs" />
+        <Compile Include="Serialization\Schema\Event\Hold.cs" />
+        <Compile Include="Serialization\Schema\Event\KillPlayer.cs" />
+        <Compile Include="Serialization\Schema\Event\MoveCamera.cs" />
+        <Compile Include="Serialization\Schema\Event\MoveDecorations.cs" />
+        <Compile Include="Serialization\Schema\Event\MoveTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\MultiPlanet.cs" />
+        <Compile Include="Serialization\Schema\Event\Multitap.cs" />
+        <Compile Include="Serialization\Schema\Event\Pause.cs" />
+        <Compile Include="Serialization\Schema\Event\PlaySound.cs" />
+        <Compile Include="Serialization\Schema\Event\PositionTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\RecolorTrack.cs" />
+        <Compile Include="Serialization\Schema\Event\RepeatEvents.cs" />
+        <Compile Include="Serialization\Schema\Event\ScaleMargin.cs" />
+        <Compile Include="Serialization\Schema\Event\ScalePlanets.cs" />
+        <Compile Include="Serialization\Schema\Event\ScaleRadius.cs" />
+        <Compile Include="Serialization\Schema\Event\ScreenScroll.cs" />
+        <Compile Include="Serialization\Schema\Event\ScreenTile.cs" />
+        <Compile Include="Serialization\Schema\Event\SetConditionalEvents.cs" />
+        <Compile Include="Serialization\Schema\Event\SetDefaultText.cs" />
+        <Compile Include="Serialization\Schema\Event\SetFilter.cs" />
+        <Compile Include="Serialization\Schema\Event\SetFilterAdvanced.cs" />
+        <Compile Include="Serialization\Schema\Event\SetFloorIcon.cs" />
+        <Compile Include="Serialization\Schema\Event\SetFrameRate.cs" />
+        <Compile Include="Serialization\Schema\Event\SetHitsound.cs" />
+        <Compile Include="Serialization\Schema\Event\SetHoldSound.cs" />
+        <Compile Include="Serialization\Schema\Event\SetInputEvent.cs" />
+        <Compile Include="Serialization\Schema\Event\SetObject.cs" />
+        <Compile Include="Serialization\Schema\Event\SetParticle.cs" />
+        <Compile Include="Serialization\Schema\Event\SetPlanetRotation.cs" />
+        <Compile Include="Serialization\Schema\Event\SetSpeed.cs" />
+        <Compile Include="Serialization\Schema\Event\SetText.cs" />
+        <Compile Include="Serialization\Schema\Event\ShakeScreen.cs" />
+        <Compile Include="Serialization\Schema\Event\TileDimensions.cs" />
+        <Compile Include="Serialization\Schema\Event\Twirl.cs" />
+        <Compile Include="Serialization\Schema\LevelSchema.cs" />
+        <Compile Include="Serialization\Schema\PropertyType.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Serialization\Decoding\" />
+      <Folder Include="Serialization\Encoding\Pipeline\Stage\Block\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="App.config" />
+      <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>
