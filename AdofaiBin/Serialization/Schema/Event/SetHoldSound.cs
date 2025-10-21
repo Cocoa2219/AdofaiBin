@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetHoldSound, "SetHoldSound", false, true)]
 public sealed class SetHoldSound : EventBase
 {
-    public SetHoldSound() : base("SetHoldSound", false, true) { }
-
     public HoldStartSound HoldStartSound { get; set; } = HoldStartSound.Fuse;
     public HoldLoopSound HoldLoopSound { get; set; } = HoldLoopSound.Fuse;
     public HoldEndSound HoldEndSound { get; set; } = HoldEndSound.Fuse;

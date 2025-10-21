@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.MoveCamera, "MoveCamera", false, false)]
 public sealed class MoveCamera : EventBase
 {
-    public MoveCamera() : base("MoveCamera", false, false) { }
-
     public float Duration { get; set; } = 1;
     public RandomMode DurationRandomMode { get; set; } = RandomMode.None;
     public float DurationRandomValue { get; set; } = 1;

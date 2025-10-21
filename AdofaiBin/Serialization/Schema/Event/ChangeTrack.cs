@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.ChangeTrack, "ChangeTrack", false, false)]
 public sealed class ChangeTrack : EventBase
 {
-    public ChangeTrack() : base("ChangeTrack", false, false) { }
-
     public TrackColorType TrackColorType { get; set; } = TrackColorType.Single;
     public Color32 TrackColor { get; set; } = new Color32(222, 187, 123, 255);
     public Color32 SecondaryTrackColor { get; set; } = new Color32(255, 255, 255, 255);

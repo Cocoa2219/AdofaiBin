@@ -1,30 +1,19 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.AddParticle, "AddParticle", true, false)]
 public sealed class AddParticle : EventBase
 {
-    public AddParticle() : base("AddParticle", true, false)
-    {
-    }
-
     public object PlaybackControl { get; set; }
     public string Tag { get; set; }
     public string DecorationImage { get; set; } = "";
     public Vec2 RandomTextureTiling { get; set; } = new(1, 1);
     public ParticleSimulationSpace SimulationSpace { get; set; } = ParticleSimulationSpace.Local;
-    public FloatPair StartRotation { get; set; } = new(0, 0);
-
-    public MinMaxGradient Color { get; set; } =
-        new() { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
-
-    public FloatPair VelocityLimitOverLifetime { get; set; } = new(0, 0);
-
-    public MinMaxGradient ColorOverLifetime { get; set; } = new()
-        { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
-
-    public FloatPair SizeOverLifetime { get; set; } = new(100, 100);
+    public FloatPair StartRotation { get; set; } = new(0, 0);public MinMaxGradient Color { get; set; } =
+        new() { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };public FloatPair VelocityLimitOverLifetime { get; set; } = new(0, 0);public MinMaxGradient ColorOverLifetime { get; set; } = new()
+        { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };public FloatPair SizeOverLifetime { get; set; } = new(100, 100);
     public int MaxParticles { get; set; } = 1000;
     public bool AutoPlay { get; set; } = true;
     public float PlayDuration { get; set; } = 5;

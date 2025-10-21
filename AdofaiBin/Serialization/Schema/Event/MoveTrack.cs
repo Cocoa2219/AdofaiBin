@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.MoveTrack, "MoveTrack", false, false)]
 public sealed class MoveTrack : EventBase
 {
-    public MoveTrack() : base("MoveTrack", false, false) { }
-
     public TileRef StartTile { get; set; } = new TileRef();
     public TileRef EndTile { get; set; } = new TileRef();
     public int GapLength { get; set; } = 0;

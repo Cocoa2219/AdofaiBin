@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.RepeatEvents, "RepeatEvents", false, false)]
 public sealed class RepeatEvents : EventBase
 {
-    public RepeatEvents() : base("RepeatEvents", false, false) { }
-
     public RepeatType RepeatType { get; set; } = RepeatType.Beat;
     public int Repetitions { get; set; } = 1;
     public int FloorCount { get; set; } = 1;

@@ -1,14 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.AddObject, "AddObject", true, false)]
 public sealed class AddObject : EventBase
 {
-    public AddObject() : base("AddObject", true, false)
-    {
-    }
-
     public ObjectDecorationType ObjectType { get; set; } = ObjectDecorationType.Floor;
     public string Tag { get; set; }
     public PlanetDecorationColorType PlanetColorType { get; set; } = PlanetDecorationColorType.DefaultRed;

@@ -1,8 +1,7 @@
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.EditorComment, "EditorComment", false, false)]
 public sealed class EditorComment : EventBase
 {
-    public EditorComment() : base("EditorComment", false, false) { }
-
     public object Comment { get; set; } = null;
 }

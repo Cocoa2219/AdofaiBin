@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.MoveDecorations, "MoveDecorations", false, false)]
 public sealed class MoveDecorations : EventBase
 {
-    public MoveDecorations() : base("MoveDecorations", false, false) { }
-
     public float Duration { get; set; } = 1;
     public string Tag { get; set; } = "editor.placeholder.sampleTag";
     public bool Visible { get; set; } = true;

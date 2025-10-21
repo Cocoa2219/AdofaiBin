@@ -1,4 +1,7 @@
-﻿namespace AdofaiBin.Serialization.Schema
+﻿using System;
+using System.Linq;
+
+namespace AdofaiBin.Serialization.Schema
 {
 	/// <summary>
 	/// Specifies the type of <see cref="ADOFAI.LevelEventType"/>
@@ -75,6 +78,20 @@
 
 	public static class EventTypeExtensions
 	{
+		private static EventType[] _settingTypes;
+		public static EventType[] SettingTypes
+		{
+			get
+			{
+				if (_settingTypes == null)
+				{
+					var values = System.Enum.GetValues(typeof(EventType)).Cast<EventType>().ToArray();
+					_settingTypes = values.Where(et => et.IsSetting()).ToArray();
+				}
+				return _settingTypes;
+			}
+		}
+
 		public static bool IsSetting(this EventType eventType) => eventType switch
 		{
 			EventType.LevelSettings or
@@ -87,5 +104,7 @@
 			EventType.DecorationSettings => true,
 			_ => false
 		};
+
+		public static bool IsDecoration(this EventType eventType) => eventType == EventType.AddDecoration;
 	}
 }

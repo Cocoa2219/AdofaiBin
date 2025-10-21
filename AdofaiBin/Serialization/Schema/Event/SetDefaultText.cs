@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetDefaultText, "SetDefaultText", false, false)]
 public sealed class SetDefaultText : EventBase
 {
-    public SetDefaultText() : base("SetDefaultText", false, false) { }
-
     public float Duration { get; set; } = 1;
     public float AngleOffset { get; set; } = 0;
     public Ease Ease { get; set; } = Ease.Linear;

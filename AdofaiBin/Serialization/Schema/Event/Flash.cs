@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.Flash, "Flash", false, false)]
 public sealed class Flash : EventBase
 {
-    public Flash() : base("Flash", false, false) { }
-
     public float Duration { get; set; } = 1;
     public FlashPlane Plane { get; set; } = FlashPlane.Background;
     public Color32 StartColor { get; set; } = new Color32(255, 255, 255, 255);

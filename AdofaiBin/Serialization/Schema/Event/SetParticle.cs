@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetParticle, "SetParticle", false, false)]
 public sealed class SetParticle : EventBase
 {
-    public SetParticle() : base("SetParticle", false, false) { }
-
     public float Duration { get; set; } = 1;
     public string Tag { get; set; } = "editor.placeholder.sampleTag";
     public ParticlePlayMode TargetMode { get; set; } = ParticlePlayMode.Start;

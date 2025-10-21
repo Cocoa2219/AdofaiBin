@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.ShakeScreen, "ShakeScreen", false, false)]
 public sealed class ShakeScreen : EventBase
 {
-    public ShakeScreen() : base("ShakeScreen", false, false) { }
-
     public float Duration { get; set; } = 1;
     public float Strength { get; set; } = 100;
     public float Intensity { get; set; } = 100;

@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.FreeRoam, "FreeRoam", false, true)]
 public sealed class FreeRoam : EventBase
 {
-    public FreeRoam() : base("FreeRoam", false, true) { }
-
     public int Duration { get; set; } = 16;
     public Vec2 Size { get; set; } = new Vec2(4, 4);
     public Vec2 PositionOffset { get; set; } = new Vec2(0, 0);

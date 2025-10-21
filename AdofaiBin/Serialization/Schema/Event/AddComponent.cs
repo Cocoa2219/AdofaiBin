@@ -1,9 +1,8 @@
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.AddComponent, "AddComponent", false, false)]
 public sealed class AddComponent : EventBase
 {
-    public AddComponent() : base("AddComponent", false, false) { }
-
     public string Component { get; set; }
     public string Properties { get; set; }
     public float Duration { get; set; } = 1;

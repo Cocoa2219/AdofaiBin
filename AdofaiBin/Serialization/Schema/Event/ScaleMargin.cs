@@ -1,8 +1,7 @@
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.ScaleMargin, "ScaleMargin", false, true)]
 public sealed class ScaleMargin : EventBase
 {
-    public ScaleMargin() : base("ScaleMargin", false, true) { }
-
     public float Scale { get; set; } = 100;
 }

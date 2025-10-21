@@ -1,14 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.AddText, "AddText", true, false)]
 public sealed class AddText : EventBase
 {
-    public AddText() : base("AddText", true, false)
-    {
-    }
-
     public string DecText { get; set; } = "sampleText";
     public string Tag { get; set; }
     public FontName Font { get; set; } = FontName.Default;

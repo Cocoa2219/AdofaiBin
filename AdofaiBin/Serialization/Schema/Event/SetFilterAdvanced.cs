@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetFilterAdvanced, "SetFilterAdvanced", false, false)]
 public sealed class SetFilterAdvanced : EventBase
 {
-    public SetFilterAdvanced() : base("SetFilterAdvanced", false, false) { }
-
     public string Filter { get; set; } = "CameraFilterPack_AAA_SuperComputer";
     public bool Enabled { get; set; } = true;
     public bool DisableOthers { get; set; } = false;

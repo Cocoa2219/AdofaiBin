@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetFilter, "SetFilter", false, false)]
 public sealed class SetFilter : EventBase
 {
-    public SetFilter() : base("SetFilter", false, false) { }
-
     public Filter Filter { get; set; } = Filter.Grayscale;
     public bool Enabled { get; set; } = true;
     public float Intensity { get; set; } = 100;

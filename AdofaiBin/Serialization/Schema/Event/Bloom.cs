@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.Bloom, "Bloom", false, false)]
 public sealed class Bloom : EventBase
 {
-    public Bloom() : base("Bloom", false, false) { }
-
     public bool Enabled { get; set; } = true;
     public float Threshold { get; set; } = 50;
     public float Intensity { get; set; } = 100;

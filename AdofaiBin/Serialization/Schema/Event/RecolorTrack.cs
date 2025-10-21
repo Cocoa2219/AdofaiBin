@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.RecolorTrack, "RecolorTrack", false, false)]
 public sealed class RecolorTrack : EventBase
 {
-    public RecolorTrack() : base("RecolorTrack", false, false) { }
-
     public TileRef StartTile { get; set; } = new TileRef();
     public TileRef EndTile { get; set; } = new TileRef();
     public int GapLength { get; set; } = 0;

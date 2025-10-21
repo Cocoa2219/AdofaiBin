@@ -1,14 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.AddDecoration, "AddDecoration", true, false)]
 public sealed class AddDecoration : EventBase
 {
-    public AddDecoration() : base("AddDecoration", true, false)
-    {
-    }
-
     public string DecorationImage { get; set; } = "";
     public string Tag { get; set; }
     public Vec2 Position { get; set; } = new(0, 0);

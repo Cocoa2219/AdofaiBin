@@ -1,11 +1,10 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.PlaySound, "PlaySound", false, false)]
 public sealed class PlaySound : EventBase
 {
-    public PlaySound() : base("PlaySound", false, false) { }
-
     public HitSound Hitsound { get; set; } = HitSound.Kick;
     public int HitsoundVolume { get; set; } = 100;
     public float AngleOffset { get; set; } = 0;

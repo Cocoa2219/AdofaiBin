@@ -1,6 +1,4 @@
-﻿using System;
-using ADOFAI;
-using SFB;
+﻿using SFB;
 using UnityEngine;
 using UnityModManagerNet;
 

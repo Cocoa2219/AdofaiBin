@@ -2,10 +2,9 @@ using AdofaiBin.Serialization.Schema.DataType;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.PositionTrack, "PositionTrack", false, false)]
 public sealed class PositionTrack : EventBase
 {
-    public PositionTrack() : base("PositionTrack", false, false) { }
-
     public Vec2 PositionOffset { get; set; } = new Vec2(0, 0);
     public TileRef RelativeTo { get; set; } = new TileRef();
     public float Rotation { get; set; } = 0;

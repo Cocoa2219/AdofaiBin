@@ -1,10 +1,9 @@
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetFloorIcon, "SetFloorIcon", false, false)]
 public sealed class SetFloorIcon : EventBase
 {
-    public SetFloorIcon() : base("SetFloorIcon", false, false) { }
-
     public CustomFloorIcon Icon { get; set; } = CustomFloorIcon.None;
 }

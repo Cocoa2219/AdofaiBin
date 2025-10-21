@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetObject, "SetObject", false, false)]
 public sealed class SetObject : EventBase
 {
-    public SetObject() : base("SetObject", false, false) { }
-
     public float Duration { get; set; } = 1;
     public string Tag { get; set; } = "editor.placeholder.sampleTag";
     public Color32 PlanetColor { get; set; } = new Color32(255, 0, 0, 255);

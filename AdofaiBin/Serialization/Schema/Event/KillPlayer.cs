@@ -1,9 +1,8 @@
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.KillPlayer, "KillPlayer", false, false)]
 public sealed class KillPlayer : EventBase
 {
-    public KillPlayer() : base("KillPlayer", false, false) { }
-
     public bool PlayAnimation { get; set; } = true;
     public string FailMessage { get; set; }
     public string EventTag { get; set; }

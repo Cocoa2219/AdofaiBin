@@ -1,9 +1,8 @@
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.SetConditionalEvents, "SetConditionalEvents", false, false)]
 public sealed class SetConditionalEvents : EventBase
 {
-    public SetConditionalEvents() : base("SetConditionalEvents", false, false) { }
-
     public string PerfectTag { get; set; } = "NONE";
     public string HitTag { get; set; } = "NONE";
     public string EarlyPerfectTag { get; set; } = "NONE";

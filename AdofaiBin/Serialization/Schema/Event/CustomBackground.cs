@@ -1,12 +1,11 @@
 using AdofaiBin.Serialization.Schema.DataType;
-using AdofaiBin.Serialization.Schema.Event.Enum;
+using AdofaiBin.Serialization.Schema.Enum;
 
 namespace AdofaiBin.Serialization.Schema.Event;
 
+[Event(EventType.CustomBackground, "CustomBackground", false, false)]
 public sealed class CustomBackground : EventBase
 {
-    public CustomBackground() : base("CustomBackground", false, false) { }
-
     public Color32 Color { get; set; } = new Color32(0, 0, 0, 255);
     public string BgImage { get; set; } = "";
     public Color32 ImageColor { get; set; } = new Color32(255, 255, 255, 255);
