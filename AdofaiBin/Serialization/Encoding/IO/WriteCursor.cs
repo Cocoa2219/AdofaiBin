@@ -22,9 +22,19 @@ public struct WriteCursor
         _sink.Write(_scratch, 0, 1);
     }
 
+    public void WriteBool(bool v)
+    {
+        WriteByte(v ? (byte)1 : (byte)0);
+    }
+
     public void WriteBytes(byte[] data)
     {
         _sink.Write(data, 0, data.Length);
+    }
+
+    public void WriteBytes(ArraySegment<byte> seg)
+    {
+        _sink.Write(seg.Array!, seg.Offset, seg.Count);
     }
 
     public void WriteUInt32(uint v)

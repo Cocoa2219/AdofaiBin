@@ -1,8 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdofaiBin.Serialization.Schema
 {
+	internal class EventTypeComparer : IEqualityComparer<EventType>
+	{
+		public bool Equals(EventType x, EventType y) => x == y;
+
+		public int GetHashCode(EventType obj) => (int)obj;
+	}
+
 	/// <summary>
 	/// Specifies the type of <see cref="ADOFAI.LevelEventType"/>
 	/// </summary>

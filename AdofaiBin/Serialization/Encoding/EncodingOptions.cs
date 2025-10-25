@@ -2,12 +2,14 @@
 {
     public sealed class EncodingOptions
     {
-        public BinaryVersion Version { get; set; } = BinaryVersion.V1;
-        public bool Deterministic { get; set; } = true;
+        // public BinaryVersion Version { get; set; } = BinaryVersion.V1;
+
         public bool Validate { get; set; } = true;
         public bool LeaveOpen { get; set; } = false;
         public CompressionKind Compression { get; set; } = CompressionKind.None;
         public int FloatPrecision { get; set; } = 4;
+        public bool Deterministic { get; set; } = true;
+        public uint HeaderFlags { get; set; } = 0;
     }
 
     public enum BinaryVersion : byte

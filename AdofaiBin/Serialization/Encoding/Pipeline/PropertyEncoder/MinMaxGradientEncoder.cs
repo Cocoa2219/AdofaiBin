@@ -27,34 +27,84 @@ public class MinMaxGradientEncoder : IPropertyEncoder
         cursor.WriteColor(gradient.ColorMin);
         cursor.WriteColor(gradient.ColorMax);
 
-        cursor.WriteVarInt(gradient.GradientMin?.Count ?? 0);
+        // cursor.WriteVarInt(gradient.GradientMin?.Count ?? 0);
+        // if (gradient.GradientMin != null)
+        // {
+        //     foreach (var (t, c) in gradient.GradientMin)
+        //     {
+        //         cursor.WriteFloat(t);
+        //         // cursor.WriteByte(c.A);
+        //         // cursor.WriteByte(c.R);
+        //         // cursor.WriteByte(c.G);
+        //         // cursor.WriteByte(c.B);
+        //
+        //         cursor.WriteColor(c);
+        //     }
+        // }
+        //
+        // cursor.WriteVarInt(gradient.GradientMax?.Count ?? 0);
+        // if (gradient.GradientMax != null)
+        // {
+        //     foreach (var (t, c) in gradient.GradientMax)
+        //     {
+        //         cursor.WriteFloat(t);
+        //         // cursor.WriteByte(c.A);
+        //         // cursor.WriteByte(c.R);
+        //         // cursor.WriteByte(c.G);
+        //         // cursor.WriteByte(c.B);
+        //
+        //         cursor.WriteColor(c);
+        //     }
+        // }
+
         if (gradient.GradientMin != null)
         {
-            foreach (var (t, c) in gradient.GradientMin)
+            var g = gradient.GradientMin.Value;
+            cursor.WriteByte((byte)g.Mode);
+            cursor.WriteVarInt(g.ColorKeys.Count);
+            foreach (var (t, c) in g.ColorKeys)
             {
                 cursor.WriteFloat(t);
-                // cursor.WriteByte(c.A);
-                // cursor.WriteByte(c.R);
-                // cursor.WriteByte(c.G);
-                // cursor.WriteByte(c.B);
-
                 cursor.WriteColor(c);
+            }
+
+            cursor.WriteVarInt(g.AlphaKeys.Count);
+            foreach (var (t, a) in g.AlphaKeys)
+            {
+                cursor.WriteFloat(t);
+                cursor.WriteFloat(a);
             }
         }
+        else
+        {
+            cursor.WriteByte(0);
+            cursor.WriteVarInt(0);
+            cursor.WriteVarInt(0);
+        }
 
-        cursor.WriteVarInt(gradient.GradientMax?.Count ?? 0);
         if (gradient.GradientMax != null)
         {
-            foreach (var (t, c) in gradient.GradientMax)
+            var g = gradient.GradientMax.Value;
+            cursor.WriteByte((byte)g.Mode);
+            cursor.WriteVarInt(g.ColorKeys.Count);
+            foreach (var (t, c) in g.ColorKeys)
             {
                 cursor.WriteFloat(t);
-                // cursor.WriteByte(c.A);
-                // cursor.WriteByte(c.R);
-                // cursor.WriteByte(c.G);
-                // cursor.WriteByte(c.B);
-
                 cursor.WriteColor(c);
             }
+
+            cursor.WriteVarInt(g.AlphaKeys.Count);
+            foreach (var (t, a) in g.AlphaKeys)
+            {
+                cursor.WriteFloat(t);
+                cursor.WriteFloat(a);
+            }
+        }
+        else
+        {
+            cursor.WriteByte(0);
+            cursor.WriteVarInt(0);
+            cursor.WriteVarInt(0);
         }
     }
 }

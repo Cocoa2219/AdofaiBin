@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AdofaiBin.Serialization.Encoding.IO;
@@ -11,9 +10,33 @@ public class WriteBlocksStage(params IBlockWriter[] blockWriters) : IStage<Encod
     private readonly IReadOnlyList<IBlockWriter> _blockWriters = blockWriters;
 
     /// <inheritdoc />
-    public ValueTask RunAsync(EncodingContext context, CancellationToken ct)
+    public async ValueTask RunAsync(EncodingContext context, CancellationToken ct)
     {
-        var cursor = new WriteCursor(context.Sink);
-        return new ValueTask(Task.WhenAll(_blockWriters.Select(bw => bw.WriteAsync(context, cursor, ct))));
+        var framer = new BlockFramer();
+        foreach (var bw in _blockWriters)
+        {
+            await framer.WriteFramedBlockAsync(context, context.Sink, bw, ct);
+        }
+    }
+}
+
+public sealed class BlockFramer
+{
+    private readonly Crc32 _crc = new();
+
+    public async ValueTask WriteFramedBlockAsync(EncodingContext context, IBinarySink sink, IBlockWriter writer, CancellationToken ct = default)
+    {
+        var headerCursor = new WriteCursor(sink);
+        headerCursor.WriteByte(writer.BlockId);
+        headerCursor.WriteUInt32(writer.GetSize(context));
+
+        _crc.Reset();
+        using var crcSink = new Crc32BinarySink(sink, _crc);
+        var payloadCursor = new WriteCursor(crcSink);
+
+        await writer.WriteBlockAsync(context, ref payloadCursor, ct);
+
+        var trailerCursor = new WriteCursor(sink);
+        trailerCursor.WriteUInt32(_crc.Value);
     }
 }

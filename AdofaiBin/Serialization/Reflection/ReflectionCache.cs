@@ -29,7 +29,7 @@ public static class ReflectionCache
         return _propsByType.GetOrAdd(t, key =>
         {
             var map = new Dictionary<string, (PropertyInfo info, PropertySetter setter)>(StringComparer.OrdinalIgnoreCase);
-            foreach (var p in key.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            foreach (var p in key.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                 map[p.Name] = (p, new PropertySetter(p));
             return map;
         });

@@ -1,4 +1,4 @@
-﻿using AdofaiBin.Serialization.Misc;
+﻿using AdofaiBin.Serialization.Encoding.Misc;
 using Newtonsoft.Json.Linq;
 
 namespace AdofaiBin.Serialization.Schema.Migration;

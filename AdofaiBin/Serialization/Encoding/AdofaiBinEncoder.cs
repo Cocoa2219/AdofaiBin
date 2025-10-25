@@ -1,12 +1,13 @@
 ﻿#nullable enable
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AdofaiBin.Serialization.Encoding.Exception;
 using AdofaiBin.Serialization.Encoding.IO;
 using AdofaiBin.Serialization.Encoding.Pipeline;
+using AdofaiBin.Serialization.Encoding.Pipeline.Stage;
+using AdofaiBin.Serialization.Encoding.Pipeline.Stage.Block;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,8 +36,14 @@ namespace AdofaiBin.Serialization.Encoding
             var sink = StreamBinarySink.FromStream(output, opt.LeaveOpen);
             using var ctx = new EncodingContext(opt, sink, json);
             var pipeline = new EncodingPipeline(
-                // Stages would be added here
-                );
+                new BuildModelStage(),
+                new BuildTablesStage(),
+                new CanonicalizeStage(),
+                new WriteBlocksStage(
+                    new HeaderBlock(),
+                    new DictBlock()
+                )
+            );
 
             await pipeline.RunAsync(ctx, ct).ConfigureAwait(false);
         }
@@ -94,6 +101,11 @@ namespace AdofaiBin.Serialization.Encoding
                 result = EncodeResult.Ok;
                 return true;
             }
+            catch (EncodingFutureVersionException)
+            {
+                result = EncodeResult.FutureVersion;
+                return false;
+            }
             catch (EncodingInvalidJsonException)
             {
                 result = EncodeResult.InvalidJson;
@@ -104,8 +116,10 @@ namespace AdofaiBin.Serialization.Encoding
                 result = EncodeResult.Cancelled;
                 return false;
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                Console.WriteLine(e);
+
                 result = EncodeResult.UnknownError;
                 return false;
             }
@@ -119,6 +133,11 @@ namespace AdofaiBin.Serialization.Encoding
                 result = EncodeResult.Ok;
                 return true;
             }
+            catch (EncodingFutureVersionException)
+            {
+                result = EncodeResult.FutureVersion;
+                return false;
+            }
             catch (EncodingInvalidJsonException)
             {
                 result = EncodeResult.InvalidJson;
@@ -129,8 +148,10 @@ namespace AdofaiBin.Serialization.Encoding
                 result = EncodeResult.Cancelled;
                 return false;
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
+                Console.WriteLine(e);
+
                 result = EncodeResult.UnknownError;
                 return false;
             }

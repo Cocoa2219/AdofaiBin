@@ -6,5 +6,6 @@ public enum EncodeResult
     // More will be added later
     InvalidJson,
     Cancelled,
-    UnknownError
+    FutureVersion,
+    UnknownError,
 }

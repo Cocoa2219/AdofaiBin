@@ -18,7 +18,13 @@ public class HitboxMigration : IMigration
             switch (value.Type)
             {
                 case JTokenType.String:
-                    obj.TryAdd("hitbox", (value.Value<string>() == "Enabled" ? HitboxType.Kill : HitboxType.None).ToString());
+                    // obj.TryAdd("hitbox", (value.Value<string>() == "Enabled" ? HitboxType.Kill : HitboxType.None).ToString());
+                    obj["hitbox"] = value.Value<string>() switch
+                    {
+                        "Enabled" => HitboxType.Kill.ToString(),
+                        "Disabled" => HitboxType.None.ToString(),
+                        _ => HitboxType.None.ToString()
+                    };
                     break;
                 case JTokenType.Boolean:
                     obj["hitbox"] = value.Value<bool>() ? HitboxType.Kill.ToString() : HitboxType.None.ToString();

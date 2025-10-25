@@ -1,4 +1,4 @@
-﻿using AdofaiBin.Serialization.Misc;
+﻿using AdofaiBin.Serialization.Encoding.Misc;
 using AdofaiBin.Serialization.Schema.Enum;
 using Newtonsoft.Json.Linq;
 

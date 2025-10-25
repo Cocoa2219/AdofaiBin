@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdofaiBin.Serialization.Misc;
+using AdofaiBin.Serialization.Encoding.Misc;
+using AdofaiBin.Serialization.Decoding;
 using AdofaiBin.Serialization.Reflection;
 using AdofaiBin.Serialization.Schema.Event;
 using AdofaiBin.Serialization.Schema.Migration;
@@ -60,20 +61,68 @@ namespace AdofaiBin.Serialization.Schema
             schema.Locked = json.GetOptional("locked", false);
             schema.Visible = json.GetOptional("visible", true);
 
-            foreach (var kv in json)
+            foreach (var kvp in json)
             {
+                var key = kvp.Key;
+                var token = kvp.Value;
 
+                if (string.Equals(key, "eventType", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(key, "floor", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(key, "active", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(key, "locked", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(key, "visible", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                var propName = PascalCase(key);
+                if (!props.TryGetValue(propName, out var tuple))
+                {
+                    continue;
+                }
+
+                if (schema.Type.IsSetting())
+                {
+                    // Set raw properties for settings events here, cause settings' layout is one kind of object
+                    // so we have to set raw properties when we know that the property is for this settings
+
+                    schema.Event.RawProperties[key] = token.Value<object>();
+                }
+
+                var targetProp = tuple.info;
+                var setter = tuple.setter;
+
+                try
+                {
+                    if (token != null)
+                    {
+                        var value = ValueDecoders.ValueDecoderRegistry.Decode(token, targetProp.PropertyType);
+                        setter.Set(schema.Event, value);
+                    }
+                }
+                catch
+                {
+                    // ignored
+                }
             }
 
             return;
 
             string PascalCase(string str) =>
-                string.Concat(str.Split('_').Select(s => char.ToUpperInvariant(s[0]) + s[1..]));
+#if NET8_0_OR_GREATER
+                string.Join(string.Empty, str.Split('_').Select(s => char.ToUpperInvariant(s[0]) + s.AsSpan(1).ToString()));
+#else
+                string.Concat(str.Split('_').Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1)));
+#endif
         }
 
         private static readonly IMigration[] _migrations =
         [
-            new DecTextMigration()
+            new DecTextMigration(),
+            new DepthMigration(),
+            new HitboxMigration(),
+            new TargetPlanetMigration(),
+            new UnscaledSizeMigration()
         ];
 
         private void MigrateOldProps(JObject obj, EventType type)

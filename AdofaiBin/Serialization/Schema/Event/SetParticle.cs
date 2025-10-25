@@ -10,9 +10,9 @@ public sealed class SetParticle : EventBase
     public string Tag { get; set; } = "editor.placeholder.sampleTag";
     public ParticlePlayMode TargetMode { get; set; } = ParticlePlayMode.Start;
     public string EventTag { get; set; }
-    public MinMaxGradient Color { get; set; } = new MinMaxGradient { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
+    public MinMaxGradient Color { get; set; } = new MinMaxGradient { Mode = ParticleSystemGradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
     public FloatPair VelocityLimitOverLifetime { get; set; } = new FloatPair(0, 0);
-    public MinMaxGradient ColorOverLifetime { get; set; } = new MinMaxGradient { Mode = GradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
+    public MinMaxGradient ColorOverLifetime { get; set; } = new MinMaxGradient { Mode = ParticleSystemGradientMode.Color, ColorMin = new Color32(255, 255, 255, 255) };
     public FloatPair SizeOverLifetime { get; set; } = new FloatPair(100, 100);
     public int MaxParticles { get; set; } = 1000;
     public FloatPair ParticleLifetime { get; set; } = new FloatPair(10, 10);
