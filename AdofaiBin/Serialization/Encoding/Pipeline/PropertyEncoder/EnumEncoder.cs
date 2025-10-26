@@ -1,36 +1,25 @@
 ﻿#nullable enable
+using System;
+using System.Collections.Generic;
 using AdofaiBin.Serialization.Encoding.IO;
-using AdofaiBin.Serialization.Schema;
-using AdofaiBin.Serialization.Schema.DataType;
 
 namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 
 public class EnumEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles { get; } = PropertyType.Enum;
+    public Type[] Handles { get; } = new[] { typeof(Enum) };
+    // public PropertyType Handles { get; } = PropertyType.Enum;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor cursor, object? value)
     {
-        if (value is EnumValue enumValue)
+        if (value is Enum enumValue)
         {
-            var typeName = enumValue.TypeName ?? string.Empty;
-            cursor.WriteUtf8String(typeName);
-
-            if (enumValue.Value is int intValue)
-            {
-                cursor.WriteVarInt(intValue);
-            }
-            else
-            {
-                var strValue = enumValue.Value?.ToString() ?? string.Empty;
-                cursor.WriteUtf8String(strValue);
-            }
+            cursor.WriteVarInt(Convert.ToInt32(enumValue));
         }
         else
         {
-            cursor.WriteUtf8String(string.Empty);
             cursor.WriteVarInt(0);
         }
     }

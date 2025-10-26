@@ -1,14 +1,15 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using AdofaiBin.Serialization.Encoding.IO;
-using AdofaiBin.Serialization.Schema;
 
 namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 
 public class ListEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles { get; } = PropertyType.List;
+    public Type[] Handles { get; } = new[] { typeof(IList<object?>) };
+    // public PropertyType Handles { get; } = PropertyType.List;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor cursor, object? value)

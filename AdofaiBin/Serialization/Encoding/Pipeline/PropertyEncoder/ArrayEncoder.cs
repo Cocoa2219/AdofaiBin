@@ -8,7 +8,8 @@ namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 public class ArrayEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles { get; } = PropertyType.Array;
+    public Type[] Handles { get; } = new[] { typeof(Array) };
+    // public PropertyType Handles { get; } = PropertyType.Array;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor cursor, object? value)

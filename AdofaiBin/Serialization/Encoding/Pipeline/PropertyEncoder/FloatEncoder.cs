@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using AdofaiBin.Serialization.Encoding.IO;
 using AdofaiBin.Serialization.Schema;
 
@@ -7,7 +8,8 @@ namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 public sealed class FloatEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles => PropertyType.Float;
+    public Type[] Handles { get; } = new[] { typeof(float), typeof(double) };
+    // public PropertyType Handles => PropertyType.Float;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor c, object? value)

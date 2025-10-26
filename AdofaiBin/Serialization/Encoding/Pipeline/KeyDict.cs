@@ -5,10 +5,10 @@ namespace AdofaiBin.Serialization.Encoding.Pipeline;
 
 public sealed class KeyDict
 {
-    private readonly Dictionary<string, int> _map = new Dictionary<string, int>(StringComparer.Ordinal);
-    private int _next = 1;
+    private readonly Dictionary<string, uint> _map = new Dictionary<string, uint>(StringComparer.Ordinal);
+    private uint _next = 1;
 
-    public int GetOrAdd(string key)
+    public uint GetOrAdd(string key)
     {
         if (_map.TryGetValue(key, out var id)) return id;
         id = _next++;
@@ -16,5 +16,5 @@ public sealed class KeyDict
         return id;
     }
 
-    public IDictionary<string, int> Items => _map;
+    public IDictionary<string, uint> Items => _map;
 }

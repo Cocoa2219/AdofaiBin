@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using AdofaiBin.Serialization.Encoding.IO;
 using AdofaiBin.Serialization.Schema;
 using AdofaiBin.Serialization.Schema.DataType;
@@ -8,7 +9,8 @@ namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 public class MinMaxGradientEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles { get; } = PropertyType.MinMaxGradient;
+    public Type[] Handles { get; } = new[] { typeof(MinMaxGradient) };
+    // public PropertyType Handles { get; } = PropertyType.MinMaxGradient;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor cursor, object? value)

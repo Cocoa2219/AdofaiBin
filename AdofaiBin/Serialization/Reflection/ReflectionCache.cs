@@ -11,7 +11,7 @@ public static class ReflectionCache
     private static readonly ConcurrentDictionary<string, Type> _typeByName =
         new(StringComparer.OrdinalIgnoreCase);
 
-    private static readonly ConcurrentDictionary<Type, Dictionary<string, (PropertyInfo info, PropertySetter setter)>> _propsByType =
+    private static readonly ConcurrentDictionary<Type, Dictionary<string, (PropertyInfo info, PropertySetter setter, PropertyGetter getter)>> _propsByType =
         new();
 
     public static Type GetTypeByName(string name, Func<string, Type> resolver)
@@ -24,13 +24,13 @@ public static class ReflectionCache
         return _typeByName.TryGetValue(name, out type);
     }
 
-    public static Dictionary<string, (PropertyInfo info, PropertySetter setter)> GetProps(Type t)
+    public static Dictionary<string, (PropertyInfo info, PropertySetter setter, PropertyGetter getter)> GetProps(Type t)
     {
         return _propsByType.GetOrAdd(t, key =>
         {
-            var map = new Dictionary<string, (PropertyInfo info, PropertySetter setter)>(StringComparer.OrdinalIgnoreCase);
+            var map = new Dictionary<string, (PropertyInfo info, PropertySetter setter, PropertyGetter getter)>(StringComparer.OrdinalIgnoreCase);
             foreach (var p in key.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-                map[p.Name] = (p, new PropertySetter(p));
+                map[p.Name] = (p, new PropertySetter(p), new PropertyGetter(p));
             return map;
         });
     }
@@ -43,6 +43,14 @@ public static class ReflectionCache
         throw new KeyNotFoundException($"Property '{propertyName}' not found on type '{t.FullName}'.");
     }
 
+    public static PropertyGetter GetPropertyGetter(Type t, string propertyName)
+    {
+        var props = GetProps(t);
+        if (props.TryGetValue(propertyName, out var tuple))
+            return tuple.getter;
+        throw new KeyNotFoundException($"Property '{propertyName}' not found on type '{t.FullName}'.");
+    }
+
     public static bool TryGetPropertySetter(Type t, string propertyName, out PropertySetter? setter)
     {
         var props = GetProps(t);
@@ -52,6 +60,18 @@ public static class ReflectionCache
             return true;
         }
         setter = null;
+        return false;
+    }
+
+    public static bool TryGetPropertyGetter(Type t, string propertyName, out PropertyGetter? getter)
+    {
+        var props = GetProps(t);
+        if (props.TryGetValue(propertyName, out var tuple))
+        {
+            getter = tuple.getter;
+            return true;
+        }
+        getter = null;
         return false;
     }
 
@@ -80,6 +100,13 @@ public static class ReflectionCache
         var t = obj.GetType();
         var setter = GetPropertySetter(t, propertyName);
         setter.Set(obj, value);
+    }
+
+    public static object GetProperty(object obj, string propertyName)
+    {
+        var t = obj.GetType();
+        var getter = GetPropertyGetter(t, propertyName);
+        return getter.Get(obj);
     }
 
     public static void Clear()

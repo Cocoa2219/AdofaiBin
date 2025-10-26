@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using AdofaiBin.Serialization.Encoding.IO;
 using AdofaiBin.Serialization.Schema;
 
@@ -7,7 +8,8 @@ namespace AdofaiBin.Serialization.Encoding.Pipeline.PropertyEncoder;
 public class StringEncoder : IPropertyEncoder
 {
     /// <inheritdoc />
-    public PropertyType Handles { get; } = PropertyType.String;
+    public Type[] Handles { get; } = new[] { typeof(string) };
+    // public PropertyType Handles { get; } = PropertyType.String;
 
     /// <inheritdoc />
     public void Write(ref WriteCursor cursor, object? value)

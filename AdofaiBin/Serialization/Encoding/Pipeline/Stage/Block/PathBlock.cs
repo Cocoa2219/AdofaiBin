@@ -10,7 +10,7 @@ public class PathBlock : IBlockWriter
     public byte BlockId { get; } = 0x03;
 
     /// <inheritdoc />
-    public uint GetSize(in EncodingContext context)
+    public uint GetSize(EncodingContext context)
     {
         var model = context.Model;
         uint size = 1;
@@ -31,7 +31,7 @@ public class PathBlock : IBlockWriter
     }
 
     /// <inheritdoc />
-    public ValueTask WriteBlockAsync(in EncodingContext context, ref WriteCursor cursor, CancellationToken ct = default)
+    public ValueTask WriteBlockAsync(EncodingContext context, ref WriteCursor cursor, CancellationToken ct = default)
     {
         var model = context.Model;
         cursor.WriteBool(model.IsOldLevel);

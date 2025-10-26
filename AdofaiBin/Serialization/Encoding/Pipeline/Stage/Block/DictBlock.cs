@@ -10,7 +10,7 @@ public class DictBlock : IBlockWriter
     public byte BlockId { get; } = 0x02;
 
     /// <inheritdoc />
-    public uint GetSize(in EncodingContext context)
+    public uint GetSize(EncodingContext context)
     {
         uint size = 0;
 
@@ -33,7 +33,7 @@ public class DictBlock : IBlockWriter
     }
 
     /// <inheritdoc />
-    public ValueTask WriteBlockAsync(in EncodingContext context, ref WriteCursor cursor, CancellationToken ct = default)
+    public ValueTask WriteBlockAsync(EncodingContext context, ref WriteCursor cursor, CancellationToken ct = default)
     {
         cursor.WriteVarUInt((ulong)context.EventKinds.Items.Count);
         foreach (var kv in context.EventKinds.Items)
@@ -46,7 +46,7 @@ public class DictBlock : IBlockWriter
         foreach (var kv in context.KeyDict.Items)
         {
             cursor.WriteUtf8String(kv.Key);
-            cursor.WriteVarUInt((ulong)kv.Value);
+            cursor.WriteVarUInt(kv.Value);
         }
 
         return default;

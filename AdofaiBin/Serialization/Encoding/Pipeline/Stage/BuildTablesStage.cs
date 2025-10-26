@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AdofaiBin.Serialization.Reflection;
 using AdofaiBin.Serialization.Schema;
 
 namespace AdofaiBin.Serialization.Encoding.Pipeline.Stage;
@@ -25,10 +26,20 @@ public class BuildTablesStage : IStage<EncodingContext>
             eventKindFreq.TryGetValue(evt.Type, out var ekCount);
             eventKindFreq[evt.Type] = ekCount + 1;
 
-            foreach (var key in evt.Event.RawProperties.Keys)
+            // Do not use RawProperties, rather use Reflection to get declared properties only
+            // foreach (var key in evt.Event.RawProperties.Keys)
+            // {
+            //     keyFreq.TryGetValue(key, out var kCount);
+            //     keyFreq[key] = kCount + 1;
+            // }
+
+            var eventType = EventRegistry.GetEventType(evt.Type);
+            var props = ReflectionCache.GetProps(eventType);
+
+            foreach (var prop in props)
             {
-                keyFreq.TryGetValue(key, out var kCount);
-                keyFreq[key] = kCount + 1;
+                keyFreq.TryGetValue(prop.Value.info.Name, out var kCount);
+                keyFreq[prop.Value.info.Name] = kCount + 1;
             }
         }
 
@@ -37,10 +48,20 @@ public class BuildTablesStage : IStage<EncodingContext>
             eventKindFreq.TryGetValue(deco.Type, out var ekCount);
             eventKindFreq[deco.Type] = ekCount + 1;
 
-            foreach (var key in deco.Event.RawProperties.Keys)
+            // Do not use RawProperties, rather use Reflection to get declared properties only
+            // foreach (var key in deco.Event.RawProperties.Keys)
+            // {
+            //     keyFreq.TryGetValue(key, out var kCount);
+            //     keyFreq[key] = kCount + 1;
+            // }
+
+            var eventType = EventRegistry.GetEventType(deco.Type);
+            var props = ReflectionCache.GetProps(eventType);
+
+            foreach (var prop in props)
             {
-                keyFreq.TryGetValue(key, out var kCount);
-                keyFreq[key] = kCount + 1;
+                keyFreq.TryGetValue(prop.Value.info.Name, out var kCount);
+                keyFreq[prop.Value.info.Name] = kCount + 1;
             }
         }
 
